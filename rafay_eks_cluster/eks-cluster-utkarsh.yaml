@@ -1,0 +1,35 @@
+kind: Cluster
+metadata:
+  name: rauto-infraprovisioner-eks-utkarsh
+  project: defaultproject
+spec:
+  blueprint: default
+  cloudprovider: utkarsh-AWS
+  type: eks
+---
+apiVersion: rafay.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: rauto-infraprovisioner-eks-utkarsh
+  region: us-west-1
+  version: "1.20"
+nodeGroups:
+- amiFamily: AmazonLinux2
+  desiredCapacity: 1
+  iam:
+    withAddonPolicies:
+      autoScaler: true
+      imageBuilder: true
+  instanceType: t3.xlarge
+  maxSize: 2
+  minSize: 1
+  name: ng-e9675ea2
+  volumeSize: 80
+  volumeType: gp3
+vpc:
+  cidr: 192.168.0.0/16
+  clusterEndpoints:
+    privateAccess: true
+    publicAccess: false
+  nat:
+    gateway: Single
